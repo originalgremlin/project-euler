@@ -40,8 +40,10 @@ public class Problem23 {
         Set<Integer> set = new HashSet<>();
         for (int i : abundant) {
             for (int j : abundant) {
-                if (i + j < MAX_NON_ABUNDANT_SUM) {
+                if (i + j <= MAX_NON_ABUNDANT_SUM) {
                     set.add(i + j);
+                } else {
+                    break;
                 }
             }
         }
