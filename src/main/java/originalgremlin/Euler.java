@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public final class Euler {
@@ -26,9 +25,34 @@ public final class Euler {
         return list;
     }
 
-    public static int[] getTriangleNumbers (int n) {
-        return IntStream.rangeClosed(0, n)
-                .map(i -> i * (i + 1) / 2).toArray();
+    public static long getTriangleNumber (long i) {
+        return i * (i + 1) / 2;
+    }
+
+    public static long getPentagonNumber (long i) {
+        return i * (3 * i - 1) / 2;
+    }
+
+    public static long getHexagonNumber (long i) {
+        return i * (2 * i - 1);
+    }
+
+    public static boolean isTriangleNumber (long i) {
+        long square = 1 + 8 * i;
+        long root = (int) Math.sqrt(square);
+        return (root * root == square) && ((-1 + root) % 2 == 0);
+    }
+
+    public static boolean isPentagonNumber (long i) {
+        long square = 1 + 24 * i;
+        long root = (int) Math.sqrt(square);
+        return (root * root == square) && ((1 + root) % 6 == 0);
+    }
+
+    public static boolean isHexagonNumber (long i) {
+        long square = 1 + 8 * i;
+        long root = (int) Math.sqrt(square);
+        return (root * root == square) && ((1 + root) % 4 == 0);
     }
 
     public static boolean isPrime (long test) {
