@@ -5,9 +5,25 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public final class Euler {
+    public static Set<Integer> getDivisors (int num) {
+        Set<Integer> set = new TreeSet<>();
+        set.add(1);
+        for (int i = 2, root = (int) Math.round(Math.sqrt(num)); i <= root; i++) {
+            if (num % i == 0) {
+                set.add(i);
+                set.add(num / i);
+            }
+        }
+        return set;
+    }
+
     public static ArrayList<String> getPermutations (String s) {
         return getPermutations("", s);
     }
@@ -23,6 +39,33 @@ public final class Euler {
             }
         }
         return list;
+    }
+
+    public static long[] getPrimesLessThan (int num) {
+        return LongStream.range(2, num)
+                .filter(Euler::isPrime)
+                .toArray();
+    }
+
+    public static ArrayList<Integer> getPrimeFactors (int num) {
+        ArrayList<Integer> factors = new ArrayList<>();
+        int root = (int) Math.ceil(Math.sqrt(num));
+        int i = 2;
+        while (i <= root) {
+            if (num % i == 0) {
+                factors.add(i);
+                num /= i;
+                root = (int) Math.round(Math.sqrt(num));
+            } else if (i == 2) {
+                i += 1;
+            } else {
+                i += 2;
+            }
+        }
+        if (num != 1) {
+            factors.add(num);
+        }
+        return factors;
     }
 
     public static long getTriangleNumber (long i) {
