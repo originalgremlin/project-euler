@@ -1,17 +1,26 @@
 package originalgremlin;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public final class Euler {
+    public static BigInteger[] factorials;
+    static {
+        factorials = new BigInteger[101];
+        factorials[0] = BigInteger.ONE;
+        for (int i = 1; i < factorials.length; i++) {
+            factorials[i] = factorials[i - 1].multiply(new BigInteger(Integer.toString(i)));
+        }
+    }
+
     public static Set<Integer> getDivisors (int num) {
         Set<Integer> set = new TreeSet<>();
         set.add(1);
@@ -114,6 +123,10 @@ public final class Euler {
             }
             return true;
         }
+    }
+
+    public static BigInteger nChooseR (int n, int r) {
+        return factorials[n].divide(factorials[r].multiply(factorials[n - r]));
     }
 
     public static Stream<String> toFileStream (String path) throws IOException {
