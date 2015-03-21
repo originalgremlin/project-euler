@@ -107,6 +107,31 @@ public final class Euler {
         return (root * root == square) && ((1 + root) % 4 == 0);
     }
 
+    public static boolean isPalindrome (long test) {
+        long fwd = test;
+        long rev = 0;
+        while (fwd > 0) {
+            rev *= 10;
+            rev += fwd % 10;
+            fwd /= 10;
+        }
+        return rev == test;
+    }
+
+    public static boolean isPalindrome (String test) {
+        int start = 0;
+        int end = test.length() - 1;
+        while (start <= end) {
+            if (test.charAt(start) != test.charAt(end)) {
+                return false;
+            } else {
+                start++;
+                end--;
+            }
+        }
+        return true;
+    }
+
     public static boolean isPrime (long test) {
         if (test < 2) {
             return false;
@@ -129,13 +154,30 @@ public final class Euler {
         return factorials[n].divide(factorials[r].multiply(factorials[n - r]));
     }
 
+    public static int numDigits (long num) {
+        return ((int) Math.log10(num)) + 1;
+    }
+
+    public static int numDigits (BigInteger num) {
+        return num.toString().length();
+    }
+
+    public static int sumOfDigits (String s) {
+        return s.chars().map(Character::getNumericValue).sum();
+    }
+
+    public static int sumOfDigits (BigInteger b) {
+        return sumOfDigits(b.toString());
+    }
+
     public static Stream<String> toFileStream (String path) throws IOException {
         return toFileStream(path, ",");
     }
 
     public static Stream<String> toFileStream (String path, String separator) throws IOException {
         String contents = new String(Files.readAllBytes(Paths.get(path)));
-        return Arrays.stream(contents.split(separator))
+        return Arrays
+                .stream(contents.split(separator))
                 .map((s) -> s.substring(1, s.length() - 1));
     }
 
