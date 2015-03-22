@@ -154,6 +154,10 @@ public final class Euler {
         return factorials[n].divide(factorials[r].multiply(factorials[n - r]));
     }
 
+    public static int[] getDigits (long num) {
+        return String.valueOf(num).chars().map(Character::getNumericValue).toArray();
+    }
+
     public static int numDigits (long num) {
         return ((int) Math.log10(num)) + 1;
     }
